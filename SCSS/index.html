@@ -135,13 +135,13 @@ body {
 - [變數](./index.html#/6)
 - [運算子](./index.html#/8)
 - [巢狀結構](./index.html#/9)
-- [@import](./index.html#/10)
-- [@mixin](./index.html#/11)
-- [@extend](./index.html#/12)
-- [迴圈](./index.html#/14)
-- [if else](./index.html#/16)
-- [random](./index.html#/17)
-- [more](./index.html#/18)
+- [迴圈](./index.html#/10)
+- [if else](./index.html#/12)
+- [random](./index.html#/13)
+- [@import](./index.html#/14)
+- [@mixin](./index.html#/15)
+- [@extend](./index.html#/16)
+- [more...](./index.html#/18)
 
 
 					</script>
@@ -256,6 +256,122 @@ Compiled:
   background: lightgray;
 }
 ```
+					</script>
+				</section>
+
+				<section style="text-align: left;" data-markdown>
+					<script type="text/template">
+### 迴圈 for
+
+```scss
+// SCSS (http://codepen.io/ssk7833/pen/MypryB)
+$font-size: 20px;
+
+@for $index from 1 through 6 {
+  div:nth-child(#{$index}) { // 用於串接字串，因此用 #{} 包起來
+    font-size: $font-size * $index;
+  }
+}
+```
+Compiled:
+```scss
+// CSS
+div:nth-child(1) { font-size: 20px; }
+div:nth-child(2) { font-size: 40px; }
+div:nth-child(3) { font-size: 60px; }
+div:nth-child(4) { font-size: 80px; }
+div:nth-child(5) { font-size: 100px; }
+div:nth-child(6) { font-size: 120px; }
+```
+※有效遠離複製貼上 painful → painless
+					</script>
+				</section>
+
+				<section style="text-align: left;" data-markdown>
+					<script type="text/template">
+### 迴圈 each
+
+```scss
+// SCSS (http://codepen.io/ssk7833/pen/ONpzxj)
+$color-list: red, green, blue;
+
+@each $color in $color-list {
+  $index: index($color-list, $color); // sass/scss 內建 function
+  div:nth-child(#{$index}) { // 用於串接字串，因此用 #{} 包起來
+    background: $color;
+  }
+}
+```
+Compiled:
+```scss
+// CSS
+div:nth-child(1) { background: red; }
+
+div:nth-child(2) { background: green; }
+
+div:nth-child(3) { background: blue; }
+```
+當然還有 [@while](http://thesassway.com/intermediate/if-for-each-while)
+					</script>
+				</section>
+
+				<section style="text-align: left;" data-markdown>
+					<script type="text/template">
+### if else
+
+```scss
+// SCSS (http://codepen.io/ssk7833/pen/bpqaaL)
+$font-size: 20px;
+@for $index from 1 through 6 {
+  div:nth-child(#{$index}) { // 用於串接字串，因此用 #{} 包起來
+    @if $font-size * $index < 100px {
+      font-size: $font-size * $index;
+    }
+    @else if $font-size * $index == 100px {
+      font-size: $font-size * $index;
+      color: red;
+    }
+    @else { font-size: $font-size; }
+  }
+}
+```
+Compiled:
+```scss
+// CSS
+div:nth-child(1) { font-size: 20px; }
+div:nth-child(2) { font-size: 40px; }
+div:nth-child(3) { font-size: 60px; }
+div:nth-child(4) { font-size: 80px; }
+div:nth-child(5) { font-size: 100px; color: red; }
+div:nth-child(6) { font-size: 20px; }
+```
+					</script>
+				</section>
+
+				<section style="text-align: left;" data-markdown>
+					<script type="text/template">
+### random
+
+特別提一下，創造隨機的效果出來。
+```scss
+// SCSS (http://codepen.io/ssk7833/pen/PNpERK)
+@for $index from 1 through 300 {
+  div:nth-child(#{$index}) {
+    top: random(100)*1%;
+    left: random(100)*1%;
+  }
+}
+```
+Compiled:
+```scss
+// CSS
+div:nth-child(1) { top: 62%; left: 56%; }
+div:nth-child(2) { top: 6%;  left: 54%; }
+div:nth-child(3) { top: 49%; left: 47%; }
+div:nth-child(4) { top: 67%; left: 2%; }
+div:nth-child(5) { top: 39%; left: 85%; }
+```
+此為簡單範例，可用於製作許多動畫上。
 					</script>
 				</section>
 
@@ -378,123 +494,6 @@ Compiled:
 ※ extend 可有效的減少程式碼長度（相較 mixin）。
 					</script>
 				</section>
-
-				<section style="text-align: left;" data-markdown>
-					<script type="text/template">
-### 迴圈 for
-
-```scss
-// SCSS (http://codepen.io/ssk7833/pen/MypryB)
-$font-size: 20px;
-
-@for $index from 1 through 6 {
-  div:nth-child(#{$index}) { // 用於串接字串，因此用 #{} 包起來
-    font-size: $font-size * $index;
-  }
-}
-```
-Compiled:
-```scss
-// CSS
-div:nth-child(1) { font-size: 20px; }
-div:nth-child(2) { font-size: 40px; }
-div:nth-child(3) { font-size: 60px; }
-div:nth-child(4) { font-size: 80px; }
-div:nth-child(5) { font-size: 100px; }
-div:nth-child(6) { font-size: 120px; }
-```
-※有效遠離複製貼上 painful → painless
-					</script>
-				</section>
-
-				<section style="text-align: left;" data-markdown>
-					<script type="text/template">
-### 迴圈 each
-
-```scss
-// SCSS (http://codepen.io/ssk7833/pen/ONpzxj)
-$color-list: red, green, blue;
-
-@each $color in $color-list {
-  $index: index($color-list, $color); // sass/scss 內建 function
-  div:nth-child(#{$index}) { // 用於串接字串，因此用 #{} 包起來
-    background: $color;
-  }
-}
-```
-Compiled:
-```scss
-// CSS
-div:nth-child(1) { background: red; }
-
-div:nth-child(2) { background: green; }
-
-div:nth-child(3) { background: blue; }
-```
-當然還有 [@while](http://thesassway.com/intermediate/if-for-each-while)
-					</script>
-				</section>
-
-				<section style="text-align: left;" data-markdown>
-					<script type="text/template">
-### if else
-
-```scss
-// SCSS (http://codepen.io/ssk7833/pen/bpqaaL)
-$font-size: 20px;
-@for $index from 1 through 6 {
-  div:nth-child(#{$index}) { // 用於串接字串，因此用 #{} 包起來
-    @if $font-size * $index < 100px {
-      font-size: $font-size * $index;
-    }
-    @else if $font-size * $index == 100px {
-      font-size: $font-size * $index;
-      color: red;
-    }
-    @else { font-size: $font-size; }
-  }
-}
-```
-Compiled:
-```scss
-// CSS
-div:nth-child(1) { font-size: 20px; }
-div:nth-child(2) { font-size: 40px; }
-div:nth-child(3) { font-size: 60px; }
-div:nth-child(4) { font-size: 80px; }
-div:nth-child(5) { font-size: 100px; color: red; }
-div:nth-child(6) { font-size: 20px; }
-```
-					</script>
-				</section>
-
-				<section style="text-align: left;" data-markdown>
-					<script type="text/template">
-### random
-
-特別提一下，創造隨機的效果出來。
-```scss
-// SCSS (http://codepen.io/ssk7833/pen/PNpERK)
-@for $index from 1 through 300 {
-  div:nth-child(#{$index}) {
-    top: random(100)*1%;
-    left: random(100)*1%;
-  }
-}
-```
-Compiled:
-```scss
-// CSS
-div:nth-child(1) { top: 62%; left: 56%; }
-div:nth-child(2) { top: 6%;  left: 54%; }
-div:nth-child(3) { top: 49%; left: 47%; }
-div:nth-child(4) { top: 67%; left: 2%; }
-div:nth-child(5) { top: 39%; left: 85%; }
-```
-此為簡單範例，可用於製作許多動畫上。
-					</script>
-				</section>
-
 
 				<section style="text-align: left;" data-markdown>
 					<script type="text/template">
